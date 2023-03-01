@@ -1,0 +1,20 @@
+{
+	"name": "Rank Sales by City",
+	"properties": {
+		"folder": {
+			"name": "DSQLPool-Lab1 Read DWStarSchemas"
+		},
+		"content": {
+			"query": " SELECT  g.EnglishCountryRegionName AS Region,\n         g.City,\n         SUM(i.SalesAmount) AS CityTotal,\n         SUM(SUM(i.SalesAmount) OVER(PARTITION BY g.EnglishCountryRegionName) AS RegionTotal,\n         RANK() OVER(PARTITION BY g.EnglishCountryRegionName\n                     ORDER BY SUM(i.SalesAmount) DESC) AS RegionalRank\n FROM FactInternetSales AS i\n JOIN DimDate AS d ON i.OrderDateKey = d.DateKey\n JOIN DimCustomer AS c ON i.CustomerKey = c.CustomerKey\n JOIN DimGeography AS g ON c.GeographyKey = g.GeographyKey\n GROUP BY g.EnglishCountryRegionName, g.City\n ORDER BY Region;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sql1s4lobc",
+				"poolName": "sql1s4lobc"
+			},
+			"resultLimit": -1
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"name": "approximate count",
+	"properties": {
+		"folder": {
+			"name": "DSQLPool-Lab1 Read DWStarSchemas"
+		},
+		"content": {
+			"query": " SELECT d.CalendarYear AS CalendarYear,\n     COUNT(DISTINCT i.SalesOrderNumber) AS Orders\n FROM FactInternetSales AS i\n JOIN DimDate AS d ON i.OrderDateKey = d.DateKey\n GROUP BY d.CalendarYear\n ORDER BY CalendarYear; \n\n-- Approximate count \n  SELECT d.CalendarYear AS CalendarYear,\n     APPROX_COUNT_DISTINCT(i.SalesOrderNumber) AS Orders\n FROM FactInternetSales AS i\n JOIN DimDate AS d ON i.OrderDateKey = d.DateKey\n GROUP BY d.CalendarYear\n ORDER BY CalendarYear;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "sql1s4lobc",
+				"poolName": "sql1s4lobc"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
